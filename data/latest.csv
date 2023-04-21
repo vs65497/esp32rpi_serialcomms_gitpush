@@ -1,0 +1,11 @@
+index, timestamp, data
+0, 15:03:12, b'Esp32 says hello!\r\n' 
+1, 15:03:13, b'Esp32 says hello!\r\n' 
+2, 15:03:14, b'Esp32 says hello!\r\n' 
+3, 15:03:15, b'Esp32 says hello!\r\n' 
+4, 15:03:16, b'Esp32 says hello!\r\n' 
+5, 15:03:17, b'Esp32 says hello!\r\n' 
+6, 15:03:18, b'Esp32 says hello!\r\n' 
+7, 15:03:19, b'Esp32 says hello!\r\n' 
+8, 15:03:20, b'Esp32 says hello!\r\n' 
+9, 15:03:21, b'Esp32 says hello!\r\n' 
