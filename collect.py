@@ -7,6 +7,8 @@ ser = serial.Serial('/dev/ttyAMA0', 9600)
 
 while True:
 
+    print("collecting data...")
+
     line = "index, timestamp, data\n"
     for i in range(0,10):
 
@@ -26,6 +28,8 @@ while True:
         
         #ser.write(received_data)
 
+    print("writing to file...")
+
     with open("data/latest.csv", "w") as file:
         file.write(line)
 
@@ -40,6 +44,8 @@ while True:
     # in order to make this possible we need to follow this
     # https://stackoverflow.com/questions/16709404/how-to-automate-the-commit-and-push-process-git
     # chmod +x pushtogit.sh
+
+    print("pushing to git...")
     
     os.system('sh pushtogit.sh')
     sleep(30)
