@@ -42,4 +42,4 @@ while True:
     # chmod +x pushtogit.sh
     
     os.system('sh pushtogit.sh')
-    sleep(10)
+    sleep(30)
