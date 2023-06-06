@@ -8,22 +8,31 @@ ser = serial.Serial('/dev/ttyAMA0', 9600)
 
 sleep(1)
 
-while True:
+go_execute = False
+while True and go_execute == False:
 
     print("I'm awake now. Sending confirmation to ESP32.")
-    ser.write(str.encode("startup"))
 
-    sleep(0.03)
+    # clear buffers
+    ser.reset_input_buffer()
+    ser.reset_output_buffer()
+
+    ser.write(str.encode("RECEIVED\n"))
+
+    sleep(0.1)
 
     received_data = ser.read()
-    #data_left = ser.inWaiting()
-    #received_data += ser.read(data_left)
+    data_left = ser.inWaiting()
+    received_data += ser.read(data_left)
 
-    print(received_data)
-    print("recieved data finish printing.")
-    if(received_data == "all systems are green. starting up!"):
+    data = received_data.decode()
+    print(data)
+
+    if(data == 'EXECUTE\r\n'):
         print("proceeding with execution.")
-        break
+        go_execute = True
+    else:
+        print("no dice")
 
     #os.system('sh pushtogit.sh')
     #sleep(30)

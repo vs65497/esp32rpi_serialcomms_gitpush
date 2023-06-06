@@ -1,9 +1,45 @@
 import os
 import serial
+import math
 from time import sleep
 from datetime import datetime
 
 ser = serial.Serial('/dev/ttyAMA0', 9600)
+
+# get handshake with ESP32
+def handshake():
+    sleep(1)
+
+    go_execute = False
+    while True and go_execute == False:
+
+        print("I'm awake now. Sending confirmation to ESP32.")
+
+        # clear buffers
+        ser.reset_input_buffer()
+        ser.reset_output_buffer()
+
+        ser.write(str.encode("RECEIVED\n"))
+
+        sleep(0.1)
+
+        received_data = ser.read()
+        data_left = ser.inWaiting()
+        received_data += ser.read(data_left)
+
+        data = received_data.decode()
+        print(data)
+
+        if(data == 'EXECUTE\r\n'):
+            print("proceeding with execution.")
+            go_execute = True
+            return
+        else:
+            print("no dice")
+
+    print("loop exited. executing...")
+
+handshake() # when successful, continue with execution
 
 while True:
 
