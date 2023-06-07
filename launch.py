@@ -1,4 +1,5 @@
 import os
+import subprocess
 import serial
 import math
 from time import sleep
@@ -66,13 +67,13 @@ for i in range(0,10):
 
 print("writing to file...")
 
-with open("data/latest.csv", "w") as file:
+with open("/home/sloth/esp32rpi_serialcomms_gitpush/data/latest.csv", "w") as file:
     file.write(line)
 
 now = datetime.now()
 timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
 
-with open("data/"+timestamp+".csv", "w") as file:
+with open("/home/sloth/esp32rpi_serialcomms_gitpush/data/"+timestamp+".csv", "w") as file:
     file.write(line)
 
 #os.system('cat data/latest.csv')
@@ -83,6 +84,9 @@ with open("data/"+timestamp+".csv", "w") as file:
 
 print("pushing to git...")
 
-os.system('sh pushtogit.sh')
+#os.system('sh pushtogit.sh')
+subprocess.run(['sh','/home/sloth/esp32rpi_serialcomms_gitpush/pushtogit.sh'])
+
+# the script doesn't know when the push is complete.
 
 handshake()
