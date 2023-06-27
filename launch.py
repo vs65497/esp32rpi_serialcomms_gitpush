@@ -44,7 +44,7 @@ handshake() # when successful, continue with execution
 
 print("collecting data...")
 
-line = "index, timestamp, data\n"
+line = "index, timestamp, temp, press, humid, alt, millis, ir, full, visible, lux, tvoc, eco2, h2, eth\n"
 for i in range(0,10):
 
     received_data = ser.read()
@@ -86,7 +86,5 @@ print("pushing to git...")
 
 #os.system('sh pushtogit.sh')
 subprocess.run(['sh','/home/sloth/esp32rpi_serialcomms_gitpush/pushtogit.sh'])
-
-# the script doesn't know when the push is complete.
 
 handshake()
