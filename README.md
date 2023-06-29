@@ -7,6 +7,8 @@ https://www.howtogeek.com/687970/how-to-run-a-linux-program-at-startup-with-syst
 TODO: write documentation for passwordless scp between raspberry pi's
 https://www.linux.com/training-tutorials/ssh-scp-without-password-remote-host-look-ma-no-password/
 
+TODO: finish cronjob tutorial. write documentation for it. this should push csv files up to github
+
 May have issues with locale
 - https://lintut.com/how-to-set-up-system-locale-on-ubuntu-18-04/
 - https://askubuntu.com/questions/599808/cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory
