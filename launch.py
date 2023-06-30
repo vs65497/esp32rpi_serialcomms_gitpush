@@ -67,13 +67,15 @@ for i in range(0,10):
 
 print("writing to file...")
 
-with open("/home/sloth/esp32rpi_serialcomms_gitpush/data/latest.csv", "w") as file:
+latest_path = "/home/sloth/esp32rpi_serialcomms_gitpush/data/latest.csv"
+with open(latest_path, "w") as file:
     file.write(line)
 
 now = datetime.now()
 timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
 
-with open("/home/sloth/esp32rpi_serialcomms_gitpush/data/"+timestamp+".csv", "w") as file:
+archive_path = "/home/sloth/esp32rpi_serialcomms_gitpush/data/"+timestamp+".csv"
+with open(archive_path, "w") as file:
     file.write(line)
 
 #os.system('cat data/latest.csv')
@@ -85,6 +87,10 @@ with open("/home/sloth/esp32rpi_serialcomms_gitpush/data/"+timestamp+".csv", "w"
 print("pushing to git...")
 
 #os.system('sh pushtogit.sh')
-subprocess.run(['sh','/home/sloth/esp32rpi_serialcomms_gitpush/pushtogit.sh'])
+#subprocess.run(['sh','/home/sloth/esp32rpi_serialcomms_gitpush/pushtogit.sh'])
+p = subprocess.Popen('scp '+ archive_path +' base@192.168.1.101:/home/base/data', shell=True)
+sts = p.wait()
+p = subprocess.Popen('scp '+ latest_path +' base@192.168.1.101:/home/base/data', shell=True)
+sts = p.wait()
 
 handshake()
