@@ -88,9 +88,9 @@ print("pushing to git...")
 
 #os.system('sh pushtogit.sh')
 #subprocess.run(['sh','/home/sloth/esp32rpi_serialcomms_gitpush/pushtogit.sh'])
-p = subprocess.Popen('scp '+ archive_path +' base@192.168.1.101:/home/base/data', shell=True)
+p = subprocess.Popen('scp '+ archive_path +' base@192.168.1.101:/home/base/slothdata/data', shell=True)
 sts = p.wait()
-p = subprocess.Popen('scp '+ latest_path +' base@192.168.1.101:/home/base/data', shell=True)
+p = subprocess.Popen('scp '+ latest_path +' base@192.168.1.101:/home/base/slothdata/data', shell=True)
 sts = p.wait()
 
 handshake()
