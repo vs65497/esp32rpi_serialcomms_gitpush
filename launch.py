@@ -55,7 +55,7 @@ for i in range(0,10):
     now = datetime.now()
     timestamp = now.strftime("%H:%M:%S")
 
-    datastr = str(received_data)
+    datastr = str(received_data).decode('utf-8')
 
     print(datastr)
 
