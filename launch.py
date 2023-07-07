@@ -28,7 +28,7 @@ def handshake():
         data_left = ser.inWaiting()
         received_data += ser.read(data_left)
 
-        data = received_data.decode('utf-8')
+        data = received_data.decode()
         print(data)
 
         if(data == 'EXECUTE\r\n'):
@@ -55,7 +55,8 @@ for i in range(0,10):
     now = datetime.now()
     timestamp = now.strftime("%H:%M:%S")
 
-    datastr = str(received_data).decode('utf-8')
+    datastr = received_data.decode()
+    #datastr = "testing"
 
     print(datastr)
 
@@ -88,9 +89,33 @@ print("pushing to git...")
 
 #os.system('sh pushtogit.sh')
 #subprocess.run(['sh','/home/sloth/esp32rpi_serialcomms_gitpush/pushtogit.sh'])
-p = subprocess.Popen('scp '+ archive_path +' base@192.168.1.101:/home/base/slothdata/data', shell=True)
-sts = p.wait()
-p = subprocess.Popen('scp '+ latest_path +' base@192.168.1.101:/home/base/slothdata/data', shell=True)
-sts = p.wait()
+
+#p1 = subprocess.Popen('scp '+ archive_path +' base@192.168.1.101:/home/base/slothdata/data', shell=True)
+#sts1 = p1.wait()
+#p2 = subprocess.Popen('scp '+ latest_path +' base@192.168.1.101:/home/base/slothdata/data', shell=True)
+#sts2 = p2.wait()
+
+f = open("/home/sloth/esp32rpi_serialcomms_gitpush/errorlog.txt", "w")
+
+p1 = subprocess.Popen('scp '+ archive_path +' base@192.168.1.101:/home/base/slothdata/data', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+output, error = p1.communicate()
+
+if p1.returncode != 0:
+    f.write('p1 output - %d %s %s\n' % (p1.returncode, output.decode(), error.decode()))
+
+sts1 = p1.wait()
+
+p2 = subprocess.Popen('scp '+ latest_path +' base@192.168.1.101:/home/base/slothdata/data', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+output, error = p2.communicate()
+
+if p2.returncode != 0:
+    f.write('p2 output - %d %s %s\n' % (p2.returncode, output.decode(), error.decode()))
+
+sts2 = p2.wait()
+
+f.close()
+
+#p = subprocess.Popen('sh /home/sloth/esp32rpi_serialcomms_gitpush/test.sh', shell=True)
+#sts = p.wait()
 
 handshake()

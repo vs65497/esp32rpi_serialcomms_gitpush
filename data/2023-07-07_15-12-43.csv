@@ -1,0 +1,11 @@
+index, timestamp, temp, press, humid, alt, millis, ir, full, visible, lux, tvoc, eco2, h2, eth
+0, 15:12:39, testing 
+1, 15:12:40, testing 
+2, 15:12:40, testing 
+3, 15:12:41, testing 
+4, 15:12:41, testing 
+5, 15:12:41, testing 
+6, 15:12:42, testing 
+7, 15:12:42, testing 
+8, 15:12:42, testing 
+9, 15:12:43, testing 
