@@ -21,7 +21,7 @@ bool handshake() {
 
  while (true) {
    if(counter > timeout * 1000) {
-     Serial.println("ERROR: Handshake timed out!");
+     //Serial.println("ERROR: Handshake timed out!");
      return false; // this means that the RPi4 did not successfully connect
    }
 
@@ -163,7 +163,7 @@ void setup() {
     // Safety: Try to turn on the relay again.
     digitalWrite(relay_gpio, HIGH);
     
-    Serial.println("Attempting to handshake with RPi4...");    
+    //Serial.println("Attempting to handshake with RPi4...");    
   }
 
   // Configure BME680
@@ -196,9 +196,9 @@ void setup() {
 
   // waiting for autonomous push to complete.
   while (handshake() == false) {
-    Serial.println("Waiting for push to github to complete...");    
+    //Serial.println("Waiting for push to github to complete...");    
   }
-  Serial.println("Push completed!");
+  //Serial.println("Push completed!");
 
   Serial.println("Entering hibernation mode...");
   hibernate();
