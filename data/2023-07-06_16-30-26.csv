@@ -1,0 +1,11 @@
+index, timestamp, temp, press, humid, alt, millis, ir, full, visible, lux, tvoc, eco2, h2, eth
+0, 16:30:25, b'Handshake successful!\r\nBME680 test\r\n' 
+1, 16:30:26, b'Starting Adafruit TSL2591 Test!\r' 
+2, 16:30:26, b'\nFound a TSL2591 sensor\r\n-------' 
+3, 16:30:26, b'-----------------------------\r\nG' 
+4, 16:30:26, b'ain:         25x (Medium)\r\nTimin' 
+5, 16:30:26, b'g:       300 ms\r\n---------------' 
+6, 16:30:26, b'---------------------\r\n\r\nSGP30 t' 
+7, 16:30:26, b'est\r\nFound SGP30 serial #01229EDA\r\n' 
+8, 16:30:26, b'Temperature = 25.20 *C\r\nPressure' 
+9, 16:30:26, b' = 1006.66 hPa\r\nHumidity = 55.09' 

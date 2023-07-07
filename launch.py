@@ -28,7 +28,7 @@ def handshake():
         data_left = ser.inWaiting()
         received_data += ser.read(data_left)
 
-        data = received_data.decode()
+        data = received_data.decode('utf-8')
         print(data)
 
         if(data == 'EXECUTE\r\n'):
