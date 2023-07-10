@@ -1,2 +1,6 @@
-STDOUT:
-STDOUT:
+p1 output - 1  ssh: connect to host 192.168.1.101 port 22: No route to host
+lost connection
+
+p2 output - 1  ssh: connect to host 192.168.1.101 port 22: No route to host
+lost connection
+

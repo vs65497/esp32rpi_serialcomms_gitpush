@@ -5,7 +5,7 @@ import math
 from time import sleep
 from datetime import datetime
 
-ser = serial.Serial('/dev/ttyAMA0', 9600)
+ser = serial.Serial('/dev/ttyAMA0', 115200)
 
 # get handshake with ESP32
 def handshake():
