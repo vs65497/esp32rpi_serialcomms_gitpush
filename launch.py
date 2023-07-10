@@ -48,7 +48,7 @@ line = "index, timestamp, temp, press, humid, alt, millis, ir, full, visible, lu
 for i in range(0,10):
 
     received_data = ser.read()
-    sleep(0.03)
+    sleep(0.06)
     data_left = ser.inWaiting()
     received_data += ser.read(data_left)
 
