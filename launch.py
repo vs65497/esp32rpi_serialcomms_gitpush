@@ -44,11 +44,11 @@ handshake() # when successful, continue with execution
 
 print("collecting data...")
 
-line = "index, timestamp, temp, press, humid, alt, millis, ir, full, visible, lux, tvoc, eco2, h2, eth\n"
+line = "index, timestamp, temp, press, humid, gas, alt, millis, ir, full, visible, lux, tvoc, eco2, h2, eth\n"
 for i in range(0,10):
 
     received_data = ser.read()
-    sleep(0.06)
+    sleep(0.5)
     data_left = ser.inWaiting()
     received_data += ser.read(data_left)
 
