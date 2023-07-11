@@ -69,15 +69,17 @@ for i in range(0,10):
 print("writing to file...")
 
 latest_path = "/home/sloth/esp32rpi_serialcomms_gitpush/data/latest.csv"
-with open(latest_path, "w") as file:
-    file.write(line)
+latest_file = open(latest_path, "w")
+latest_file.write(line)
+latest_file.close()
 
 now = datetime.now()
 timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
 
 archive_path = "/home/sloth/esp32rpi_serialcomms_gitpush/data/"+timestamp+".csv"
-with open(archive_path, "w") as file:
-    file.write(line)
+archive_file = open(latest_path, "w")
+archive_file.write(line)
+archive_file.close()
 
 #os.system('cat data/latest.csv')
 
