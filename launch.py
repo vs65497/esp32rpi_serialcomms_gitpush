@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import os
 import subprocess
 import serial
@@ -6,15 +8,18 @@ from time import sleep
 from datetime import datetime
 
 ser = serial.Serial('/dev/ttyAMA0', 115200)
+logpath = "/home/sloth/esp32rpi_serialcomms_gitpush/log.txt"
+logfile = open(logpath, "w+")
 
 # get handshake with ESP32
 def handshake():
     sleep(1)
 
+    print("I'm awake now. Sending confirmation to ESP32.")
+    logfile.write("I'm awake now. Sending confirmation to ESP32.\n")
+
     go_execute = False
     while True and go_execute == False:
-
-        print("I'm awake now. Sending confirmation to ESP32.")
 
         # clear buffers
         ser.reset_input_buffer()
@@ -33,19 +38,22 @@ def handshake():
 
         if(data == 'EXECUTE\r\n'):
             print("proceeding with execution.")
+            logfile.write("proceeding with execution.\n")
             go_execute = True
             return
-        else:
-            print("no dice")
+        #else:
+            #print("no dice")
 
     print("loop exited. executing...")
+    logfile.write("loop exited. executing...\n")
 
 handshake() # when successful, continue with execution
 
 print("collecting data...")
+logfile.write("collecting data...\n")
 
 line = "index, timestamp, temp, press, humid, gas, alt, millis, ir, full, visible, lux, tvoc, eco2, h2, eth\n"
-for i in range(0,10):
+for i in range(0,5):
 
     received_data = ser.read()
     sleep(0.5)
@@ -55,31 +63,38 @@ for i in range(0,10):
     now = datetime.now()
     timestamp = now.strftime("%H:%M:%S")
 
-    datastr = received_data.decode()
+    datastr = str(received_data)
     #datastr = "testing"
 
     print(datastr)
 
-    entry = str(i) + ", " + timestamp + ", " + datastr + " \n"
+    entry = str(i) + ", " + timestamp + ", " + datastr + "\n"
     line += entry
     print(entry)
     
     #ser.write(received_data)
 
 print("writing to file...")
+logfile.write("writing to file...\n")
 
 latest_path = "/home/sloth/esp32rpi_serialcomms_gitpush/data/latest.csv"
-latest_file = open(latest_path, "w")
-latest_file.write(line)
-latest_file.close()
+#latest_file = open(latest_path, "w")
+#latest_file.write(line)
+#latest_file.close()
+
+with open(latest_path, "w+") as file:
+    file.write(line)
 
 now = datetime.now()
 timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
 
 archive_path = "/home/sloth/esp32rpi_serialcomms_gitpush/data/"+timestamp+".csv"
-archive_file = open(latest_path, "w")
-archive_file.write(line)
-archive_file.close()
+#archive_file = open(archive_path, "w")
+#archive_file.write(line)
+#archive_file.close()
+
+with open(archive_path, "w+") as file:
+    file.write(line)
 
 #os.system('cat data/latest.csv')
 
@@ -88,6 +103,7 @@ archive_file.close()
 # chmod +x pushtogit.sh
 
 print("pushing to git...")
+logfile.write("pushing to git...\n")
 
 #os.system('sh pushtogit.sh')
 #subprocess.run(['sh','/home/sloth/esp32rpi_serialcomms_gitpush/pushtogit.sh'])
@@ -97,9 +113,9 @@ print("pushing to git...")
 #p2 = subprocess.Popen('scp '+ latest_path +' base@192.168.1.101:/home/base/slothdata/data', shell=True)
 #sts2 = p2.wait()
 
-f = open("/home/sloth/esp32rpi_serialcomms_gitpush/errorlog.txt", "w")
+f = open("/home/sloth/esp32rpi_serialcomms_gitpush/errorlog.txt", "w+")
 
-p1 = subprocess.Popen('scp '+ archive_path +' base@192.168.1.101:/home/base/slothdata/data', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+p1 = subprocess.Popen('sudo scp '+ archive_path +' base@192.168.1.101:/home/base/slothdata/data', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 output, error = p1.communicate()
 
 if p1.returncode != 0:
@@ -107,7 +123,7 @@ if p1.returncode != 0:
 
 sts1 = p1.wait()
 
-p2 = subprocess.Popen('scp '+ latest_path +' base@192.168.1.101:/home/base/slothdata/data', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+p2 = subprocess.Popen('sudo scp '+ latest_path +' base@192.168.1.101:/home/base/slothdata/data', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 output, error = p2.communicate()
 
 if p2.returncode != 0:
@@ -121,3 +137,7 @@ f.close()
 #sts = p.wait()
 
 handshake()
+
+logfile.write("completed.\n")
+logfile.flush()
+logfile.close()
