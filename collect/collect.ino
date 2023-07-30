@@ -147,7 +147,7 @@ void hibernate() {
 }
 void setup() {
   // BME680 ********************
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   pinMode(relay_gpio, OUTPUT);  
 
